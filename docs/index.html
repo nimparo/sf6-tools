@@ -2,12 +2,21 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>List of Tools</title>
+    <meta name=”viewport” content=”width=device-width, initial-scale=1″>
+    <title data-i18n="title"></title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h2>ツール一覧 List of Tools</h2>
-    <ul>
-        <li><a href="./combo-damage-calculator/">コンボダメージ計算機 Combo Damage Caluculator</a></li>
-    </ul>
+    <div class="container">
+        <h2 data-i18n="title"></h2>
+        <select id="language-select">
+            <option value="ja">日本語</option>
+            <option value="en">English</option>
+        </select>
+        <ul>
+            <li><a href="./combo-damage-calculator/" data-i18n="CDC"></a></li>
+        </ul>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
