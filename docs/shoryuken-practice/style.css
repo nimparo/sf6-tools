@@ -1,0 +1,107 @@
+body {
+    font-family: sans-serif;
+    padding: 20px;
+    background: #f5f5f5;
+}
+
+.card {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    max-width: 420px;
+    margin: auto;
+}
+
+h1 {
+    font-size: 1.4rem;
+    margin-bottom: 16px;
+}
+
+.counter {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 12px 0;
+}
+
+.status {
+    color: #444;
+    margin-top: 4px;
+}
+
+.small {
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.prev-count {
+    font-size: 1rem;
+    color: #888;
+    margin-top: 4px;
+}
+
+.button-select {
+    cursor: pointer;
+    padding: 4px 8px;
+    margin: 4px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    display: inline-block;
+}
+
+.button-select.active {
+    background: #ddd;
+}
+
+.toggle-button {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 100px;
+    height: 50px;
+    border-radius: 50px;
+    box-sizing: content-box;
+    background-color: #ff8d8d33;
+    cursor: pointer;
+    transition: background-color .4s;
+}
+
+.toggle-button:has(:checked) {
+    background-color: #75bbff33;
+}
+
+.toggle-button::before {
+    position: absolute;
+    left: 5px;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background-color: #ff8d8d;
+    content: '';
+    transition: left .4s;
+}
+
+.toggle-button:has(:checked)::before {
+    left: 50px;
+    background-color: #75bbff;
+}
+
+.toggle-button::after {
+    position: absolute;
+    left: 26px;
+    transform: translateX(-50%);
+    color: #fff;
+    font-weight: 600;
+    font-size: .9em;
+    content: '1P';
+    transition: left .4s;
+}
+
+.toggle-button:has(:checked)::after {
+    left: 71px;
+    content: '2P';
+}
+
+.toggle-button input {
+    display: none;
+}

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Shoryuken Practice</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="card">
+        <h1>昇竜拳練習 Shoryuken Practice</h1>
+        <div>
+            <p>昇竜拳用のボタン Your Buttons for Shoryuken</p>
+            <div id="buttonSelectors">
+                <span class="button-select" data-index="0">Button 0</span>
+                <span class="button-select" data-index="1">Button 1</span>
+                <span class="button-select" data-index="2">Button 5</span>
+            </div>
+            <input type="checkbox" id="resetOrNot" checked>失敗時リセット Whether to reset after a failure</input>
+            <label class="toggle-button">
+                <input type="checkbox" id="invertToggle" />
+            </label>
+            <p class="counter" id="count">0</p>
+            <p class="prev-count" id="prevCount">前回のカウント Previous count：0</p>
+            <input type="button" value="Back" id="back"></input>
+            <input type="button" value="+" id="increase"></input>
+            <input type="button" value="-" id="decrease"></input>
+            <input type="button" value="Reset" id="reset"></input>
+            <p class="status" id="status">コントローラーを接続してください Connect your controller</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
