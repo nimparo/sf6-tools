@@ -24,6 +24,19 @@ h1 {
     margin: 12px 0;
 }
 
+.countSide {
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 12px 0;
+}
+
+.otherSide {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 12px 0;
+    color: #888;
+}
+
 .status {
     color: #444;
     margin-top: 4px;

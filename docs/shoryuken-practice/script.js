@@ -2,14 +2,12 @@ const translations = {
     ja: {
         title: "昇竜拳練習",
         target: "昇竜拳用のボタン",
-        misstake: "失敗時リセット",
         precount: "前回のカウント：",
         connect: "コントローラーを接続してください"
     },
     en: {
         title: "Shoryuken Practice",
         target: "Your Buttons for Shoryuken",
-        misstake: "Whether to reset after a failure",
         precount: "Previous count：",
         connect: "Connect your controller"
     }
@@ -49,6 +47,7 @@ function judgeLanguage(ja, en) {
 
 let count = 0;
 let prevCountValue = 0;
+let total = [0, 0];
 const DIR_UP = 12;
 const DIR_DOWN = 13;
 const DIR_LEFT = 14;
@@ -64,19 +63,14 @@ let waitingForRelease = false;
 
 let render = true;
 let division = 5;
-let inverted = false;
+let side = 1;
 let divButton = [false, false, false];
-let resetOrNot = true;
 
 function activateSelector(index) {
     document.querySelectorAll('.button-select').forEach(e => e.classList.remove('active'));
     document.querySelector(`.button-select[data-index='${index}']`).classList.add('active');
     activeSelectorIndex = index;
 }
-
-document.getElementById('resetOrNot').addEventListener('change', e => {
-    resetOrNot = !resetOrNot;
-});
 
 document.getElementById('back').addEventListener('click', e => {
     if (prevCountValue != 0) {
@@ -87,26 +81,11 @@ document.getElementById('back').addEventListener('click', e => {
     }
 });
 
-document.getElementById('increase').addEventListener('click', e => {
-    count++;
-    document.getElementById('count').textContent = count;
-});
+document.getElementById('increase').addEventListener('click', e => increase());
 
-document.getElementById('decrease').addEventListener('click', e => {
-    if (count != 0) {
-        count--;
-        document.getElementById('count').textContent = count;
-    }
-});
+document.getElementById('decrease').addEventListener('click', e => decrease());
 
-document.getElementById('reset').addEventListener('click', e => {
-    if (count != 0) {
-        prevCountValue = count;
-        count = 0;
-        document.getElementById('count').textContent = count;
-        document.getElementById('prevCount').textContent = prevCountValue;
-    }
-});
+document.getElementById('reset').addEventListener('click', e => reset());
 
 document.querySelectorAll('.button-select').forEach(el => {
     el.addEventListener('click', () => {
@@ -116,11 +95,16 @@ document.querySelectorAll('.button-select').forEach(el => {
 });
 
 document.getElementById('invertToggle').addEventListener('change', e => {
-    inverted = e.target.checked;
+    side = e.target.checked ? 2:1;
+    let elements = Array.from(document.getElementsByClassName('total'));
+    elements.forEach(x =>{
+        x.classList.toggle('countSide');
+        x.classList.toggle('otherSide');
+    });
 });
 
 function getDirectionValue(up, down, left, right) {
-    if (inverted) {
+    if (side == 2) {
         let tmp = left;
         left = right;
         right = tmp;
@@ -154,6 +138,27 @@ function checkSequence() {
         }
     }
     return false;
+}
+
+function increase(){
+    document.getElementById('count').textContent = ++count;
+    document.getElementById('count' + side + 'p').textContent = ++total[side-1];
+}
+
+function decrease(){
+    if (count != 0) {
+        document.getElementById('count').textContent = --count;
+    }
+    document.getElementById('count' + side + 'p').textContent = --total[side-1];
+}
+
+function reset(){
+    if (count != 0) {
+        prevCountValue = count;
+        count = 0;
+        document.getElementById('count').textContent = count;
+        document.getElementById('prevCount').textContent = prevCountValue;
+    }
 }
 
 function loop() {
@@ -217,15 +222,10 @@ function loop() {
                 idx = targetButtons[i];
                 if (idx !== null && (now[idx] || divButton[i]) && !prevButtons[idx]) {
                     if (checkSequence()) {
-                        count++;
+                        increase();
                     } else {
-                        if (count != 0 && resetOrNot) {
-                            prevCountValue = count;
-                            count = 0;
-                        }
+                        reset();
                     }
-                    document.getElementById('count').textContent = count;
-                    document.getElementById('prevCount').textContent = '前回のカウント Previous count：' + prevCountValue;
                 }
             }
             prevButtons = { ...now };
