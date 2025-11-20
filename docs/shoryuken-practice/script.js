@@ -1,3 +1,52 @@
+const translations = {
+    ja: {
+        title: "昇竜拳練習",
+        target: "昇竜拳用のボタン",
+        misstake: "失敗時リセット",
+        precount: "前回のカウント：",
+        connect: "コントローラーを接続してください"
+    },
+    en: {
+        title: "Shoryuken Practice",
+        target: "Your Buttons for Shoryuken",
+        misstake: "Whether to reset after a failure",
+        precount: "Previous count：",
+        connect: "Connect your controller"
+    }
+};
+
+function setLanguage(lang) {
+    const elements = document.querySelectorAll('[data-i18n]');
+    elements.forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key]) {
+            el.textContent = translations[lang][key];
+        }
+    });
+}
+
+// ユーザーのブラウザ言語設定を取得
+let userLanguage = navigator.language || navigator.userLanguage;
+if (userLanguage.startsWith('ja')) {
+    setLanguage('ja');
+    document.getElementById('language-select').value = 'ja';
+} else {
+    setLanguage('en');
+    document.getElementById('language-select').value = 'en';
+}
+
+document.getElementById('language-select').addEventListener('change', (e) => {
+    setLanguage(e.target.value);
+});
+
+function judgeLanguage(ja, en) {
+    if (document.getElementById('language-select').value == 'ja') {
+        return ja;
+    } else {
+        return en;
+    }
+}
+
 let count = 0;
 let prevCountValue = 0;
 const DIR_UP = 12;
@@ -34,7 +83,7 @@ document.getElementById('back').addEventListener('click', e => {
         count = prevCountValue;
         prevCountValue = 0;
         document.getElementById('count').textContent = count;
-        document.getElementById('prevCount').textContent = '前回のカウント Previous count：' + prevCountValue;
+        document.getElementById('prevCount').textContent = prevCountValue;
     }
 });
 
@@ -55,7 +104,7 @@ document.getElementById('reset').addEventListener('click', e => {
         prevCountValue = count;
         count = 0;
         document.getElementById('count').textContent = count;
-        document.getElementById('prevCount').textContent = '前回のカウント Previous count：' + prevCountValue;
+        document.getElementById('prevCount').textContent = prevCountValue;
     }
 });
 
@@ -111,10 +160,10 @@ function loop() {
     setTimeout(function () {
         const pad = (navigator.getGamepads && navigator.getGamepads()[0]) || null;
         if (!pad) {
-            document.getElementById('status').textContent = 'コントローラーを接続してください Connect your controller';
+            document.getElementById('status').textContent = judgeLanguage('コントローラーを接続してください', 'Connect your controller');
             return requestAnimationFrame(loop);
         } else {
-            document.getElementById('status').textContent = 'コントローラー接続中 Conected the controller：' + pad.id;
+            document.getElementById('status').textContent = judgeLanguage('コントローラー接続中', 'Conected the controller') + '：' + pad.id;
         }
 
         const now = {};

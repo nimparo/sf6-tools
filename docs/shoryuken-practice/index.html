@@ -4,31 +4,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Shoryuken Practice</title>
+    <title data-i18n="title"></title>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
     <div class="card">
-        <h1>昇竜拳練習 Shoryuken Practice</h1>
+        <h2 data-i18n="title"></h2>
+        <select id="language-select">
+            <option value="ja">日本語</option>
+            <option value="en">English</option>
+        </select>
         <div>
-            <p>昇竜拳用のボタン Your Buttons for Shoryuken</p>
+            <p data-i18n="target"></p>
             <div id="buttonSelectors">
                 <span class="button-select" data-index="0">Button 0</span>
                 <span class="button-select" data-index="1">Button 1</span>
                 <span class="button-select" data-index="2">Button 5</span>
             </div>
-            <input type="checkbox" id="resetOrNot" checked>失敗時リセット Whether to reset after a failure</input>
+            <input type="checkbox" id="resetOrNot" checked data-i18n="misstake"></input>
             <label class="toggle-button">
                 <input type="checkbox" id="invertToggle" />
             </label>
             <p class="counter" id="count">0</p>
-            <p class="prev-count" id="prevCount">前回のカウント Previous count：0</p>
+            <span class="prev-count" data-i18n="precount"></span><span class="prev-count" id="prevCount">0</span><br>
             <input type="button" value="Back" id="back"></input>
             <input type="button" value="+" id="increase"></input>
             <input type="button" value="-" id="decrease"></input>
             <input type="button" value="Reset" id="reset"></input>
-            <p class="status" id="status">コントローラーを接続してください Connect your controller</p>
+            <p class="status" id="status" data-i18n="connect"></p>
         </div>
     </div>
 
